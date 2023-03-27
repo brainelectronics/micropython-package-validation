@@ -30,12 +30,10 @@ jobs:
         run: |
           changelog2version \
             --changelog_file changelog.md \
-            --version_file be_upy_blink/version.py \
+            --version_file src/setup2upypackage/version.py \
             --version_file_type py \
             --debug
-          python setup.py sdist
-          rm dist/*.orig
-        # sdist call create non conform twine files *.orig, remove them
+          python -m build .
       - name: Publish package
         uses: pypa/gh-action-pypi-publish@release/v1.5
         with:
