@@ -1,4 +1,4 @@
-MicroPython package template
+MicroPython Package Validation
 ===================================
 
 Contents
@@ -11,7 +11,7 @@ Contents
    EXAMPLES
    DOCUMENTATION
    CONTRIBUTING
-   be_upy_blink
+   setup2upypackage
    changelog_link
 
 Indices and tables
