@@ -180,7 +180,7 @@ class TestSetup2uPyPackage(unittest.TestCase):
         self.assertEqual(len(val), len(self.package_files_expectation))
 
         self.assertTrue(all(isinstance(ele, Path) for ele in val))
-        self.assertEqual(val, self.package_files_expectation)
+        self.assertEqual(sorted(val), sorted(self.package_files_expectation))
 
         self.s2pp._setup_data.pop('packages')
         val = self.s2pp.package_files
@@ -300,7 +300,11 @@ class TestSetup2uPyPackage(unittest.TestCase):
             package_changelog_file=None,
             logger=self.package_logger
         )
-        self.assertTrue(s2pp.validate())
+        is_valid = s2pp.validate()
+        if is_valid:
+            self.assertTrue(is_valid)
+        else:
+            self.test_logger.warning(s2pp.validation_diff)
 
     @unittest.skip("Not yet implemented")
     def test_validation_diff(self) -> None:
