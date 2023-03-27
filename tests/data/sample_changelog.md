@@ -17,19 +17,17 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 -->
 
 ## Released
-## [0.1.0] - 2023-03-27
+## [9.8.7] - 2023-03-27
 ### Added
-- `setup2upypackage` module
-- Examples and documentation
-- Unittest files
+- bla
 
 ### Changed
-- Several updates on setup and config files different than the template repo
+- blub
 
 ### Removed
-- Not used files provided with [template repo](https://github.com/brainelectronics/micropython-i2c-lcd)
+- Carl
 
 <!-- Links -->
 [Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.1.0...main
 
-[0.1.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.1.0
+[9.8.7]: https://github.com/brainelectronics/micropython-package-validation/tree/9.8.7
