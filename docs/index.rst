@@ -8,7 +8,6 @@ Contents
    :maxdepth: 1
 
    readme_link
-   EXAMPLES
    DOCUMENTATION
    CONTRIBUTING
    setup2upypackage
