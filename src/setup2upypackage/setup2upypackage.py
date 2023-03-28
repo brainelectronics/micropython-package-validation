@@ -110,7 +110,7 @@ class Setup2uPyPackage(object):
         :returns:   Package version based on setup.py "version" entry
         :rtype:     str
         """
-        if 'version' in self._setup_data:
+        if self._setup_data.get('version', ""):
             return self._setup_data['version']
         else:
             self._logger.warning("No 'version' key found in setup data dict")
@@ -147,7 +147,7 @@ class Setup2uPyPackage(object):
         :returns:   Package dependencies based on setup.py "install_requires"
         :rtype:     List[str]
         """
-        if 'install_requires' in self._setup_data:
+        if self._setup_data.get('install_requires', []):
             return self._setup_data['install_requires']
         else:
             self._logger.warning(
@@ -163,7 +163,7 @@ class Setup2uPyPackage(object):
         :returns:   Package URL based on setup.py "url" entry
         :rtype:     str
         """
-        if 'url' in self._setup_data:
+        if self._setup_data.get('url', ""):
             return self._setup_data['url']
         else:
             self._logger.warning("No 'url' key found in setup data dict")
@@ -181,7 +181,7 @@ class Setup2uPyPackage(object):
         all_files = []
         root_dir = self._root_dir
 
-        if 'packages' in self._setup_data:
+        if self._setup_data.get('packages', []):
             packages = self._setup_data['packages']
         else:
             self._logger.warning("No 'packages' key found in setup data dict")
@@ -206,7 +206,7 @@ class Setup2uPyPackage(object):
         all_files = []
         root_dir = self._root_dir
 
-        if 'data_files' in self._setup_data:
+        if self._setup_data.get('data_files', []):
             data_files = self._setup_data['data_files']
         else:
             self._logger.warning(
