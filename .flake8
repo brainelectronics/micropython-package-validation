@@ -43,6 +43,7 @@ exclude =
     .idea
     # custom scripts, not being part of the distribution
     libs_external
+    tests/data
     sdist_upip.py
     setup.py
 

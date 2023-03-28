@@ -1,4 +1,4 @@
-MicroPython package template
+MicroPython Package Validation
 ===================================
 
 Contents
@@ -8,10 +8,9 @@ Contents
    :maxdepth: 1
 
    readme_link
-   EXAMPLES
    DOCUMENTATION
    CONTRIBUTING
-   be_upy_blink
+   setup2upypackage
    changelog_link
 
 Indices and tables

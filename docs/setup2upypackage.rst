@@ -4,10 +4,10 @@ API
 .. autosummary::
    :toctree: generated
 
-BE uPy Blink
+Setup 2 uPy Package
 ---------------------------------
 
-.. automodule:: be_upy_blink.blink
+.. automodule:: setup2upypackage.setup2upypackage
    :members:
    :private-members:
    :show-inheritance:

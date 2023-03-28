@@ -14,29 +14,16 @@ sys.path.insert(0, os.path.abspath('../'))
 here = Path(__file__).parent.resolve()
 
 try:
-    # Inject mock modules so that we can build the
-    # documentation without having the real stuff available
-    from mock import Mock
-
-    to_be_mocked = [
-        'micropython',
-        'machine',
-        'time.sleep_ms', 'time.sleep_us',
-    ]
-    for module in to_be_mocked:
-        sys.modules[module] = Mock()
-        print("Mocked '{}' module".format(module))
-
-    import be_upy_blink
+    import setup2upypackage
 except ImportError:
-    raise SystemExit("be_upy_blink has to be importable")
+    raise SystemExit("setup2upypackage has to be importable")
 
 # load elements of version.py
-exec(open(here / '..' / 'be_upy_blink' / 'version.py').read())
+exec(open(here / '..' / 'src' / 'setup2upypackage' / 'version.py').read())
 
 # -- Project information
 
-project = 'micropython-package-template'
+project = 'micropython-package-validation'
 copyright = '2023, brainelectronics'
 author = 'brainelectronics'
 
@@ -78,10 +65,10 @@ suppress_warnings = [
 # A list of regular expressions that match URIs that should not be checked
 # when doing a linkcheck build.
 linkcheck_ignore = [
-    # tag 0.4.0 did not exist during docs introduction
-    'https://github.com/brainelectronics/micropython-package-template/tree/0.4.0',
+    # tag 0.1.0 did not exist during docs introduction
+    'https://github.com/brainelectronics/micropython-package-validation/tree/0.1.0',
     # RTD page did not exist during docs introduction
-    'https://micropython-package-template.readthedocs.io/en/latest/',
+    'https://micropython-package-validation.readthedocs.io/en/latest/',
 ]
 
 templates_path = ['_templates']
