@@ -17,6 +17,10 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 -->
 
 ## Released
+## [0.1.1] - 2023-04-18
+### Fixed
+- Sort URL list elements before comparing `package.json` and returned `setup.py` data, see #2
+
 ## [0.1.0] - 2023-03-27
 ### Added
 - `setup2upypackage` module
@@ -30,6 +34,7 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 - Not used files provided with [template repo](https://github.com/brainelectronics/micropython-i2c-lcd)
 
 <!-- Links -->
-[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.1.0...main
+[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.1.1...main
 
+[0.1.1]: https://github.com/brainelectronics/micropython-package-validation/tree/0.1.1
 [0.1.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.1.0
