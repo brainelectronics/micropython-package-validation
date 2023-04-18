@@ -6,6 +6,7 @@ import json
 import logging
 import unittest
 from pathlib import Path
+from random import shuffle
 from sys import stdout
 from unittest.mock import PropertyMock, mock_open, patch
 
@@ -305,6 +306,21 @@ class TestSetup2uPyPackage(unittest.TestCase):
             self.assertTrue(is_valid)
         else:
             self.test_logger.warning(s2pp.validation_diff)
+
+        # check for differently sorted URL list entries
+        shuffeled_package_json_data = dict(s2pp.package_json_data)
+        shuffle(shuffeled_package_json_data["urls"])
+        self.assertNotEqual(
+            shuffeled_package_json_data["urls"],
+            s2pp.package_json_data
+        )
+        with patch('setup2upypackage.setup2upypackage.Setup2uPyPackage.package_json_data', new_callable=PropertyMock) as patched:     # noqa: E501
+            patched.return_value = shuffeled_package_json_data
+            is_valid = s2pp.validate()
+            if is_valid:
+                self.assertTrue(is_valid)
+            else:
+                self.test_logger.warning(s2pp.validation_diff)
 
     @unittest.skip("Not yet implemented")
     def test_validation_diff(self) -> None:
