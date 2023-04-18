@@ -313,7 +313,14 @@ class Setup2uPyPackage(object):
         :returns:   Result of validation, True on success, False otherwise
         :rtype:     bool
         """
-        return self.package_json_data == self.package_data
+        # list of URL entries might be sorted differently
+        package_json_data = dict(self.package_json_data)
+        package_data = dict(self.package_data)
+
+        package_json_data.get("urls", []).sort()
+        package_data.get("urls", []).sort()
+
+        return package_json_data == package_data
 
     @property
     def validation_diff(self) -> DeepDiff:
