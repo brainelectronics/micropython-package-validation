@@ -101,7 +101,13 @@ def parse_arguments() -> argparse.Namespace:
                         dest='ignore_version',
                         action='store_true',
                         required=False,
-                        help='Exclude version value from check ')
+                        help='Exclude version from check')
+
+    parser.add_argument('--ignore-deps',
+                        dest='ignore_deps',
+                        action='store_true',
+                        required=False,
+                        help='Exclude dependencies from check')
 
     parser.add_argument('--print',
                         dest='print_result',
@@ -148,6 +154,7 @@ def main():
     print_result = args.print_result
     pretty_output = args.pretty_output
     ignore_version = args.ignore_version
+    ignore_deps = args.ignore_deps
 
     setup_2_upy_package = Setup2uPyPackage(
         setup_file=setup_file,
@@ -158,7 +165,11 @@ def main():
     package_data = setup_2_upy_package.package_data
 
     if do_validate:
-        if not setup_2_upy_package.validate(ignore_version=ignore_version):
+        validation_result = setup_2_upy_package.validate(
+            ignore_version=ignore_version,
+            ignore_deps=ignore_deps)
+
+        if validation_result is False:
             diff = setup_2_upy_package.validation_diff
 
             if pretty_output:
