@@ -306,9 +306,12 @@ class Setup2uPyPackage(object):
 
         return existing_data
 
-    def validate(self) -> bool:
+    def validate(self, ignore_version: bool = False) -> bool:
         """
         Validate existing package.json with setup.py based data
+
+        :param      ignore_version:  Indicates if the version is ignored
+        :type       ignore_version:  bool
 
         :returns:   Result of validation, True on success, False otherwise
         :rtype:     bool
@@ -316,6 +319,10 @@ class Setup2uPyPackage(object):
         # list of URL entries might be sorted differently
         package_json_data = dict(self.package_json_data)
         package_data = dict(self.package_data)
+
+        if ignore_version:
+            package_json_data.pop("version")
+            package_data.pop("version")
 
         package_json_data.get("urls", []).sort()
         package_data.get("urls", []).sort()

@@ -77,7 +77,7 @@ between the generated (based on `setup.py`) and existing package
 ```bash
 upy-package \
     --setup_file tests/data/setup.py \
-    --package_changelog_file tests/data/changelog.md \
+    --package_changelog_file tests/data/sample_changelog.md \
     --package_file tests/data/package.json \
     --validate
 ```
