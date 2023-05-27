@@ -27,6 +27,7 @@ MicroPython Package Validation for mip package.json files
     - [Validate](#validate)
         - [Validate package JSON file](#validate-package-json-file)
         - [Validate package JSON file from changelog](#validate-package-json-file-from-changelog)
+        - [Options](#options)
     - [Create](#create)
         - [Create package JSON file](#create-package-json-file)
             - [Create specific package JSON file](#create-specific-package-json-file)
@@ -96,6 +97,12 @@ upy-package \
     --package_file tests/data/package.json \
     --validate
 ```
+
+#### Options
+
+To not take the version or the dependencies specified in the `package.json`
+file during a validation run, use the `--ignore-version` or `--ignore-deps`
+argument.
 
 ### Create
 #### Create package JSON file
