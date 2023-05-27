@@ -97,6 +97,12 @@ def parse_arguments() -> argparse.Namespace:
                         required=False,
                         help='Validate existing package.json with setup.py based data')  # noqa: E501
 
+    parser.add_argument('--ignore-version',
+                        dest='ignore_version',
+                        action='store_true',
+                        required=False,
+                        help='Exclude version value from check ')
+
     parser.add_argument('--print',
                         dest='print_result',
                         required=False,
@@ -141,6 +147,7 @@ def main():
     dump_to_file = args.dump_to_file
     print_result = args.print_result
     pretty_output = args.pretty_output
+    ignore_version = args.ignore_version
 
     setup_2_upy_package = Setup2uPyPackage(
         setup_file=setup_file,
@@ -151,7 +158,7 @@ def main():
     package_data = setup_2_upy_package.package_data
 
     if do_validate:
-        if not setup_2_upy_package.validate():
+        if not setup_2_upy_package.validate(ignore_version=ignore_version):
             diff = setup_2_upy_package.validation_diff
 
             if pretty_output:
