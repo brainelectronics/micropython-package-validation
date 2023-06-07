@@ -11,7 +11,7 @@ import logging
 import sys
 from distutils.core import run_setup
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from changelog2version.extract_version import ExtractVersion
 from deepdiff import DeepDiff
@@ -308,14 +308,17 @@ class Setup2uPyPackage(object):
 
     def validate(self,
                  ignore_version: bool = False,
-                 ignore_deps: bool = False) -> bool:
+                 ignore_deps: bool = False,
+                 ignore_boot_main: bool = False) -> bool:
         """
         Validate existing package.json with setup.py based data
 
-        :param      ignore_version:  Indicates if the version is ignored
-        :type       ignore_version:  bool
-        :param      ignore_deps:     Indicates if the dependencies are ignored
-        :type       ignore_deps:     bool
+        :param      ignore_version:     Flag to ignore the version
+        :type       ignore_version:     bool
+        :param      ignore_deps:        Flag to ignore the dependencies
+        :type       ignore_deps:        bool
+        :param      ignore_boot_main:   Flag to ignore the main and boot files
+        :type       ignore_boot_main:   bool
 
         :returns:   Result of validation, True on success, False otherwise
         :rtype:     bool
@@ -325,17 +328,45 @@ class Setup2uPyPackage(object):
         package_data = dict(self.package_data)
 
         if ignore_version:
-            package_json_data.pop("version")
-            package_data.pop("version")
+            package_json_data.pop("version", None)
+            package_data.pop("version", None)
 
         if ignore_deps:
-            package_json_data.pop("deps")
-            package_data.pop("deps")
+            package_json_data.pop("deps", None)
+            package_data.pop("deps", None)
+
+        if ignore_boot_main:
+            package_json_data["urls"] = self._exclude_package_files(
+                package_files=package_json_data.get("urls")
+            )
+
+            package_data["urls"] = self._exclude_package_files(
+                package_files=package_data.get("urls")
+            )
 
         package_json_data.get("urls", []).sort()
         package_data.get("urls", []).sort()
 
         return package_json_data == package_data
+
+    def _exclude_package_files(
+            self,
+            package_files: List[Tuple[str, str]],
+            excludes: List[str] = [
+                "boot.py", "main.py"
+            ]) -> List[Tuple[str, str]]:
+        """
+        Exclude elements of a list if the first element matches an exclude str
+
+        :param      package_files:  The package files
+        :type       package_files:  List[Tuple[str, str]]
+        :param      excludes:       The list of excludes
+        :type       excludes:       List[str]
+
+        :returns:   List without elements matching the exclude list
+        :rtype:     List[Tuple[str, str]]
+        """
+        return [ele for ele in package_files if ele[0] not in excludes]
 
     @property
     def validation_diff(self) -> DeepDiff:

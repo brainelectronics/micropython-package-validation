@@ -355,6 +355,68 @@ class TestSetup2uPyPackage(unittest.TestCase):
             else:
                 self.test_logger.warning(s2pp.validation_diff)
 
+        # check for main and/or boot entries
+        diff_urls_package_json_data = dict(s2pp.package_json_data)
+        diff_urls_package_json_data.get("urls").append([
+            "boot.py",
+            "github:brainelectronics/micropython-package-validation/boot.py"
+        ])
+        diff_urls_package_json_data.get("urls").append([
+            "main.py",
+            "github:brainelectronics/micropython-package-validation/main.py"
+        ])
+        self.assertNotEqual(
+            diff_urls_package_json_data["urls"],
+            s2pp.package_json_data
+        )
+        self.assertTrue(
+            all(isinstance(ele, list)
+                for ele in diff_urls_package_json_data.get("urls"))
+        )
+
+        with patch('setup2upypackage.setup2upypackage.Setup2uPyPackage.package_json_data', new_callable=PropertyMock) as patched:     # noqa: E501
+            patched.return_value = diff_urls_package_json_data
+            is_valid = s2pp.validate(ignore_boot_main=True)
+            if is_valid:
+                self.assertTrue(is_valid)
+            else:
+                self.test_logger.warning(s2pp.validation_diff)
+
+    def test__exclude_package_files(self) -> None:
+        """Test excluding package files from list of package files"""
+        package = [
+            [
+                "main.py",
+                "github:brainelectronics/micropython-package-validation/main.py"    # noqa: E501
+            ],
+            [
+                "other_dir/bar.py",
+                "github:brainelectronics/micropython-package-validation/other_dir/bar.py"   # noqa: E501
+            ],
+            [
+                "some/foo.py",
+                "github:brainelectronics/micropython-package-validation/some/foo.py"   # noqa: E501
+            ],
+        ]
+
+        result = self.s2pp._exclude_package_files(package_files=package)
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 2)
+        for ele in result:
+            self.assertEqual(len(ele), 2)
+        self.assertEqual(result, package[1:])
+
+        # use non default exclude list
+        result = self.s2pp._exclude_package_files(
+            package_files=package,
+            excludes=["some/foo.py"]
+        )
+        self.assertIsInstance(result, list)
+        self.assertEqual(len(result), 2)
+        for ele in result:
+            self.assertEqual(len(ele), 2)
+        self.assertEqual(result, package[:-1])
+
     @unittest.skip("Not yet implemented")
     def test_validation_diff(self) -> None:
         """Test validation difference property"""
