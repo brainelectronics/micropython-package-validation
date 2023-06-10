@@ -102,7 +102,8 @@ upy-package \
 
 To not take the version or the dependencies specified in the `package.json`
 file during a validation run, use the `--ignore-version` or `--ignore-deps`
-argument.
+argument. Additionally added `boot.py` and `main.py` files in `package.json`
+can be ignored using `--ignore-boot-main` during a validation run.
 
 ### Create
 #### Create package JSON file

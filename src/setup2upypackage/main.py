@@ -109,6 +109,12 @@ def parse_arguments() -> argparse.Namespace:
                         required=False,
                         help='Exclude dependencies from check')
 
+    parser.add_argument('--ignore-boot-main',
+                        dest='ignore_boot_main',
+                        action='store_true',
+                        required=False,
+                        help='Boot and main files from check')
+
     parser.add_argument('--print',
                         dest='print_result',
                         required=False,
@@ -155,6 +161,7 @@ def main():
     pretty_output = args.pretty_output
     ignore_version = args.ignore_version
     ignore_deps = args.ignore_deps
+    ignore_boot_main = args.ignore_boot_main
 
     setup_2_upy_package = Setup2uPyPackage(
         setup_file=setup_file,
@@ -167,7 +174,8 @@ def main():
     if do_validate:
         validation_result = setup_2_upy_package.validate(
             ignore_version=ignore_version,
-            ignore_deps=ignore_deps)
+            ignore_deps=ignore_deps,
+            ignore_boot_main=ignore_boot_main)
 
         if validation_result is False:
             diff = setup_2_upy_package.validation_diff
