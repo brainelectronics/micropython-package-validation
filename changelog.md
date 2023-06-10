@@ -17,9 +17,9 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 -->
 
 ## Released
-## [0.4.0] - 2023-06-07
+## [0.4.0] - 2023-06-10
 ### Added
-- `boot.py` and `main.py` can be ignored during the check with `--ignore-boot-main`, see #8
+- `*/boot.py` and `*/main.py` can be ignored during the check with `--ignore-boot-main`, see #8
 
 ## [0.3.0] - 2023-05-27
 ### Added

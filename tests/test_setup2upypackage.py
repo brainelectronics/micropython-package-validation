@@ -362,7 +362,7 @@ class TestSetup2uPyPackage(unittest.TestCase):
             "github:brainelectronics/micropython-package-validation/boot.py"
         ])
         diff_urls_package_json_data.get("urls").append([
-            "main.py",
+            "asdf/main.py",
             "github:brainelectronics/micropython-package-validation/main.py"
         ])
         self.assertNotEqual(

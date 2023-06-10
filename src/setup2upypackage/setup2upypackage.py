@@ -366,7 +366,10 @@ class Setup2uPyPackage(object):
         :returns:   List without elements matching the exclude list
         :rtype:     List[Tuple[str, str]]
         """
-        return [ele for ele in package_files if ele[0] not in excludes]
+        return [
+            ele for ele in package_files
+            if not any(i in ele[0] for i in excludes)
+        ]
 
     @property
     def validation_diff(self) -> DeepDiff:
