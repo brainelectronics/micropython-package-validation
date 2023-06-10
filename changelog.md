@@ -17,6 +17,10 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 -->
 
 ## Released
+## [0.4.0] - 2023-06-10
+### Added
+- `*/boot.py` and `*/main.py` can be ignored during the check with `--ignore-boot-main`, see #8
+
 ## [0.3.0] - 2023-05-27
 ### Added
 - Dependencies of package can be ignored during the check with `--ignore-deps`, see #5
@@ -42,8 +46,9 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 - Not used files provided with [template repo](https://github.com/brainelectronics/micropython-i2c-lcd)
 
 <!-- Links -->
-[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.3.0...main
+[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.4.0...main
 
+[0.4.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.4.0
 [0.3.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.3.0
 [0.2.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.2.0
 [0.1.1]: https://github.com/brainelectronics/micropython-package-validation/tree/0.1.1
