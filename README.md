@@ -34,6 +34,7 @@ MicroPython Package Validation for mip package.json files
         - [Create package JSON file from changelog](#create-package-json-file-from-changelog)
 - [Contributing](#contributing)
     - [Unittests](#unittests)
+    - [Precommit hooks](#precommit-hooks)
 - [Credits](#credits)
 
 <!-- /MarkdownTOC -->
@@ -174,6 +175,24 @@ coverage html
 ```
 
 The coverage report is placed at `reports/coverage/html/index.html`
+
+### Precommit hooks
+
+This repo is equipped with a `.pre-commit-hooks.yaml` file to be usable in
+other repos.
+
+In order to run this repo's pre commit hooks, perform the following steps
+
+```bash
+pip install pre-commit
+# for older systems without colored output support, last supported version is
+# 1.18.3 (7c3404ef1f7593094c854f99bcd3b3eec75fbb2f, 1.19.0 broke it)
+# test it with:
+# from os import openpty
+# r,w = openpty()
+
+pre-commit run --all-files
+```
 
 ## Credits
 
