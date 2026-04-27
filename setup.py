@@ -99,6 +99,8 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Programming Language :: Python :: 3 :: Only",
     ],
     license="MIT",
@@ -136,9 +138,9 @@ setup(
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/discussions/install-requires-vs-requirements/
     install_requires=[
-        "changelog2version>=0.9.0,<1",
-        "deepdiff>=6.3.0,<7",
-        "mock>=4.0.3,<5",
+        "changelog2version>=0.12.1,<1",
+        "deepdiff>=8.6.2,<9",
+        "mock>=5.2.0,<6",
     ],  # Optional
     # List additional groups of dependencies here (e.g. development
     # dependencies). Users will be able to install these using the "extras"
@@ -150,13 +152,13 @@ setup(
     # projects.
     extras_require={  # Optional
         "dev": [
-            "tox>=3.25.1,<4"
+            "tox>=4.30,<5"
         ],
         "test": [
-            "flake8>=5.0.0,<6",
-            "coverage>=6.4.2,<7",
-            "nose2>=0.12.0,<1",
-            "yamllint>=1.29,<2"
+            "flake8>=7.3.0,<8",
+            "coverage>=7.10,<8",
+            "nose2>=0.16.0,<1",
+            "yamllint>=1.37,<2"
         ],
     },
     # If there are data files included in your packages that need to be
