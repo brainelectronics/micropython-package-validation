@@ -17,6 +17,17 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 -->
 
 ## Released
+## [0.6.0] - 2026-04-27
+### Added
+- `.python-version` to use repo this with pyenv
+
+### Changed
+- Bump all package versions to their latest version supporting Python 3.9
+- Mention Python 3.11 and 3.12 support in `setup.py`
+
+### Fixed
+- Silence all yamllint warnings
+
 ## [0.5.1] - 2026-04-27
 ### Fixed
 - This change creates the correct release candidate number based on the action run of a pull request workflow run `test-release` instead of the total number of this workflow run. By this fix, the `-rcX` metadata starts at `1` and is incremented with every push, no matter if the push is a force push or a classic new commit on top in a ongoing pull request.
@@ -60,8 +71,9 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 - Not used files provided with [template repo](https://github.com/brainelectronics/micropython-i2c-lcd)
 
 <!-- Links -->
-[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.5.1...main
+[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.6.0...main
 
+[0.6.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.6.0
 [0.5.1]: https://github.com/brainelectronics/micropython-package-validation/tree/0.5.1
 [0.5.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.5.0
 [0.4.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.4.0
