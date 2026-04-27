@@ -20,6 +20,9 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 ## [0.5.1] - 2026-04-27
 ### Fixed
 - This change creates the correct release candidate number based on the action run of a pull request workflow run `test-release` instead of the total number of this workflow run. By this fix, the `-rcX` metadata starts at `1` and is incremented with every push, no matter if the push is a force push or a classic new commit on top in a ongoing pull request.
+- Update external action versions to latest available version
+- Fix license specification in `setup.py` file
+- Check all files in `dist/`, not only `*.tar.gz`
 
 ## [0.5.0] - 2023-07-05
 ### Added
