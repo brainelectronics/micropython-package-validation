@@ -5,7 +5,7 @@
 
 name: Upload Python Package to test.pypi.org
 
-on: [pull_request]
+on: [pull_request]  # yamllint disable-line rule:truthy
 
 permissions:
   contents: write

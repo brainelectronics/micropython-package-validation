@@ -5,7 +5,7 @@
 
 name: Unittest Python Package
 
-on: [push, pull_request]
+on: [push, pull_request]  # yamllint disable-line rule:truthy
 
 permissions:
   contents: read
