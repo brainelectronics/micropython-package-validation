@@ -15,14 +15,55 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
+      - name: Count run number
+        id: count
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.setFailed("This workflow must be triggered by a pull request.");
+              return;
+            }
+
+            const pr_number = pr.number;
+            const workflow_name = context.workflow;
+            const branch_name = pr.head.ref;
+            const event_match = "pull_request";
+            console.log("PR Number: " + pr_number);
+            console.log("Workflow name: " + workflow_name);
+            console.log("Branch name: " + branch_name);
+
+            if (!pr_number) {
+              console.log("No pull request number found in context.");
+              core.setOutput("count", 0);
+              return;
+            }
+
+            const runs = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              event: event_match,
+              branch: branch_name,
+              per_page: 100
+            });
+
+            const filtered = runs.data.workflow_runs.filter(run =>
+              run.name === workflow_name &&
+              run.event === event_match &&
+              run.pull_requests?.some(p => p.number === pr_number)
+            );
+            console.log("Matches for filters aka runs: " + filtered.length);
+
+            const count = filtered.length > 0 ? filtered.length : 1;
+            core.setOutput("rc_number", count);
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v6
         with:
           python-version: '3.9'
       - name: Install build dependencies
         run: |
-          python -m pip install -U setuptools wheel build
           if [ -f requirements-deploy.txt ]; then pip install -r requirements-deploy.txt; fi
       - name: Build package
         run: |
@@ -30,23 +71,23 @@ jobs:
             --changelog_file changelog.md \
             --version_file src/setup2upypackage/version.py \
             --version_file_type py \
-            --additional_version_info="-rc${{ github.run_number }}.dev${{ github.event.number }}" \
+            --additional_version_info="-rc${{ steps.count.outputs.rc_number }}.dev${{ github.event.number }}" \
             --debug
           python -m build .
       - name: Test built package
         run: |
-          twine check dist/*.tar.gz
+          twine check dist/*
       - name: Archive build package artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
           # ${{ github.repository }} and ${{ github.ref_name }} can't be used
           # for artifact name due to unallowed '/'
-          name: dist_repo.${{ github.event.repository.name }}_sha.${{ github.sha }}_build.${{ github.run_number }}
+          name: dist_repo.${{ github.event.repository.name }}_sha.${{ github.sha }}_build.${{ steps.count.outputs.rc_number }}
           path: dist/*.tar.gz
           retention-days: 14
       - name: Publish package
-        uses: pypa/gh-action-pypi-publish@release/v1.5
+        uses: pypa/gh-action-pypi-publish@release/v1.13
         with:
           repository_url: https://test.pypi.org/legacy/
           password: ${{ secrets.TEST_PYPI_API_TOKEN }}
@@ -54,15 +95,15 @@ jobs:
           verbose: true
           print_hash: true
       - name: 'Create changelog based prerelease'
-        uses: brainelectronics/changelog-based-release@v1
+        uses: brainelectronics/changelog-based-release@v1.1.0
         with:
           # note you'll typically need to create a personal access token
           # with permissions to create releases in the other repo
           # or you set the "contents" permissions to "write" as in this example
           changelog-path: changelog.md
           tag-name-prefix: ''
-          tag-name-extension: '-rc${{ github.run_number }}.dev${{ github.event.number }}'
+          tag-name-extension: '-rc${{ steps.count.outputs.rc_number }}.dev${{ github.event.number }}'
           release-name-prefix: ''
-          release-name-extension: '-rc${{ github.run_number }}.dev${{ github.event.number }}'
+          release-name-extension: '-rc${{ steps.count.outputs.rc_number }}.dev${{ github.event.number }}'
           draft-release: true
           prerelease: true
