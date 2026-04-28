@@ -1,0 +1,41 @@
+{
+    "urls": [
+        [
+            "other_dir/foo.mpy",
+            "github:brainelectronics/micropython-package-validation/other_dir/foo.mpy"
+        ],
+        [
+            "other_dir/bar.mpy",
+            "github:brainelectronics/micropython-package-validation/other_dir/bar.mpy"
+        ],
+        [
+            "other_dir/baz.mpy",
+            "github:brainelectronics/micropython-package-validation/other_dir/baz.mpy"
+        ],
+        [
+            "static/style.css",
+            "github:brainelectronics/micropython-package-validation/static/style.css"
+        ],
+        [
+            "static/favicon.ico",
+            "github:brainelectronics/micropython-package-validation/static/favicon.ico"
+        ],
+        [
+            "static/js/function.js",
+            "github:brainelectronics/micropython-package-validation/static/js/function.js"
+        ],
+        [
+            "other_files/index.tpl",
+            "github:brainelectronics/micropython-package-validation/other_files/index.tpl"
+        ],
+        [
+            "other_files/page.tpl",
+            "github:brainelectronics/micropython-package-validation/other_files/page.tpl"
+        ]
+    ],
+    "deps": [
+        "dependency_1",
+        "dependency_2"
+    ],
+    "version": "1.2.3"
+}

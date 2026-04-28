@@ -30,6 +30,7 @@ class Setup2uPyPackage(object):
                  setup_file: Path,
                  package_file: Optional[Path],
                  package_changelog_file: Optional[Path],
+                 package_file_glob: Optional[str] = "*.py",
                  logger: Optional[logging.Logger] = None) -> None:
         """
         Init Setup2uPyPackage class
@@ -49,6 +50,7 @@ class Setup2uPyPackage(object):
 
         self._setup_file = setup_file
         self._package_file = package_file
+        self._package_file_glob = package_file_glob
         self._package_changelog_file = package_changelog_file
 
         self._setup_data = {}
@@ -188,7 +190,7 @@ class Setup2uPyPackage(object):
             return []
 
         for package in packages:
-            p = root_dir.glob('{}/*.py'.format(package))
+            p = root_dir.glob('{}/{}'.format(package, self._package_file_glob))
             files = [x.relative_to(root_dir) for x in p if x.is_file()]
             all_files.extend(files)
 
@@ -331,14 +333,17 @@ class Setup2uPyPackage(object):
         package_data = dict(self.package_data)
 
         if ignore_version:
+            self._logger.debug("Ignoring version")
             package_json_data.pop("version", None)
             package_data.pop("version", None)
 
         if ignore_deps:
+            self._logger.debug("Ignoring deps")
             package_json_data.pop("deps", None)
             package_data.pop("deps", None)
 
         if ignore_boot_main:
+            self._logger.debug("Ignoring boot.py and main.py")
             package_json_data["urls"] = self._exclude_package_files(
                 package_files=package_json_data.get("urls")
             )

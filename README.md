@@ -32,6 +32,7 @@ MicroPython Package Validation for mip package.json files
         - [Create package JSON file](#create-package-json-file)
             - [Create specific package JSON file](#create-specific-package-json-file)
         - [Create package JSON file from changelog](#create-package-json-file-from-changelog)
+        - [Create package JSON file with files other than Python](#create-package-json-file-with-files-other-than-python)
 - [Contributing](#contributing)
     - [Unittests](#unittests)
     - [Precommit hooks](#precommit-hooks)
@@ -147,6 +148,26 @@ be specified explicitly to use its latest entry for the version value.
 upy-package \
     --setup_file tests/data/setup.py \
     --package_changelog_file tests/data/sample_changelog.md \
+    --create \
+    --print \
+    --pretty
+```
+
+#### Create package JSON file with files other than Python
+
+By default all `*.py` files of the packages defined by the `setup.py` file are
+used to create the list of URLs in the `package.json` file.
+For a cross compiled MicroPython package the generated `*.mpy` files would not
+be picked up and added to the `package.json` file.
+The CLI arg `--package_file_glob` allows setting a different pattern than `*.py`
+to include different types of files.
+The specified pattern is not extending the default pattern, but replacing it.
+In order to include `*.py` and `*.mpy` files may use the pattern `*.*py`
+
+```bash
+upy-package \
+    --setup_file tests/data/setup.py \
+    --package_file_glob "*.mpy" \
     --create \
     --print \
     --pretty

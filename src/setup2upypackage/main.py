@@ -79,6 +79,13 @@ def parse_arguments() -> argparse.Namespace:
                         type=Path,
                         help='Path to package.json file')
 
+    parser.add_argument('--package_file_glob',
+                        dest='package_file_glob',
+                        required=False,
+                        type=str,
+                        default="*.py",
+                        help='Glob pattern for package files')
+
     parser.add_argument('--package_changelog_file',
                         dest='package_changelog_file',
                         required=False,
@@ -154,6 +161,7 @@ def main():
 
     setup_file = args.setup_file
     package_file = args.package_file
+    package_file_glob = args.package_file_glob
     package_changelog_file = args.package_changelog_file
     do_validate = args.do_validate
     dump_to_file = args.dump_to_file
@@ -167,6 +175,7 @@ def main():
         setup_file=setup_file,
         package_file=package_file,
         package_changelog_file=package_changelog_file,
+        package_file_glob=package_file_glob,
         logger=logger)
 
     package_data = setup_2_upy_package.package_data
