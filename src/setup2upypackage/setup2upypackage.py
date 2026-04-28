@@ -333,14 +333,17 @@ class Setup2uPyPackage(object):
         package_data = dict(self.package_data)
 
         if ignore_version:
+            self._logger.debug("Ignoring version")
             package_json_data.pop("version", None)
             package_data.pop("version", None)
 
         if ignore_deps:
+            self._logger.debug("Ignoring deps")
             package_json_data.pop("deps", None)
             package_data.pop("deps", None)
 
         if ignore_boot_main:
+            self._logger.debug("Ignoring boot.py and main.py")
             package_json_data["urls"] = self._exclude_package_files(
                 package_files=package_json_data.get("urls")
             )

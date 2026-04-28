@@ -20,6 +20,7 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 ## [0.7.0] - 2026-04-28
 ### Added
 - The CLI arg `--package_file_glob` allows using a different glob pattern than the default `*.py` for adding package files from within the directory specified at `packages` in `setup.py`. For a mpy-cross compiled package the arg `--package_file_glob` should be set to `*.mpy`
+- Add debug log messages to `validate` function
 
 ## [0.6.1] - 2026-04-28
 ### Fixed
