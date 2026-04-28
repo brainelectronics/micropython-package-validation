@@ -298,6 +298,9 @@ class Setup2uPyPackage(object):
         """
         existing_data = {}
 
+        if self._package_file and not Path(self._package_file).exists():
+            raise FileNotFoundError(self._package_file)
+
         if self._package_file:
             with open(self._package_file, 'r') as f:
                 existing_data = json.load(f)

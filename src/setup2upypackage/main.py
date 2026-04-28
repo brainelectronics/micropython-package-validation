@@ -76,7 +76,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument('--package_file',
                         dest='package_file',
                         required=False,
-                        type=lambda x: parser_valid_file(parser, x),
+                        type=Path,
                         help='Path to package.json file')
 
     parser.add_argument('--package_changelog_file',
