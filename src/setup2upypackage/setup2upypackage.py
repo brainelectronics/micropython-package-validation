@@ -30,6 +30,7 @@ class Setup2uPyPackage(object):
                  setup_file: Path,
                  package_file: Optional[Path],
                  package_changelog_file: Optional[Path],
+                 package_file_glob: Optional[str] = "*.py",
                  logger: Optional[logging.Logger] = None) -> None:
         """
         Init Setup2uPyPackage class
@@ -49,6 +50,7 @@ class Setup2uPyPackage(object):
 
         self._setup_file = setup_file
         self._package_file = package_file
+        self._package_file_glob = package_file_glob
         self._package_changelog_file = package_changelog_file
 
         self._setup_data = {}
@@ -188,7 +190,7 @@ class Setup2uPyPackage(object):
             return []
 
         for package in packages:
-            p = root_dir.glob('{}/*.py'.format(package))
+            p = root_dir.glob('{}/{}'.format(package, self._package_file_glob))
             files = [x.relative_to(root_dir) for x in p if x.is_file()]
             all_files.extend(files)
 

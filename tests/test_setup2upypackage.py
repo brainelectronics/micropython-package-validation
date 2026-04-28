@@ -88,6 +88,12 @@ class TestSetup2uPyPackage(unittest.TestCase):
             Path('other_dir/baz.py'),
             Path('other_dir/foo.py')
         ]
+        # 3 .mpy files in "other_dir"
+        self.package_files_mpy_expectation = [
+            Path('other_dir/bar.mpy'),
+            Path('other_dir/baz.mpy'),
+            Path('other_dir/foo.mpy')
+        ]
 
         self.s2pp = Setup2uPyPackage(
             setup_file=self.setup_file,
@@ -182,6 +188,19 @@ class TestSetup2uPyPackage(unittest.TestCase):
 
         self.assertTrue(all(isinstance(ele, Path) for ele in val))
         self.assertEqual(sorted(val), sorted(self.package_files_expectation))
+
+        # test different glob pattern for mpy files
+        self.s2pp._package_file_glob = "*.mpy"
+        self.assertEqual(self.s2pp._package_file_glob, "*.mpy")
+        val = self.s2pp.package_files
+        self.assertIsInstance(val, list)
+        self.assertEqual(len(val), len(self.package_files_mpy_expectation))
+
+        self.assertTrue(all(isinstance(ele, Path) for ele in val))
+        self.assertEqual(sorted(val), sorted(self.package_files_mpy_expectation))
+        # restore default pattern
+        self.s2pp._package_file_glob = "*.py"
+        self.assertEqual(self.s2pp._package_file_glob, "*.py")
 
         self.s2pp._setup_data.pop('packages')
         val = self.s2pp.package_files
@@ -291,14 +310,20 @@ class TestSetup2uPyPackage(unittest.TestCase):
         val = s2pp.package_json_data
         self.assertIsInstance(val, dict)
 
-    def test_validate(self) -> None:
+    @params(
+        ("package.json", "*.py"),   # package file, glob pattern
+        ("package_mpy.json", "*.mpy"),
+    )
+    def test_validate(self, package_file: str, pattern: str) -> None:
         """Test validation of existing package.json against setup.py file"""
         self.package_logger.disabled = True
+        package_file = self._here / 'data' / package_file
 
         s2pp = Setup2uPyPackage(
             setup_file=self.setup_file,
-            package_file=self.package_file,
+            package_file=package_file,
             package_changelog_file=None,
+            package_file_glob=pattern,
             logger=self.package_logger
         )
         is_valid = s2pp.validate()
