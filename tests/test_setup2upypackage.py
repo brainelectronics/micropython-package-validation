@@ -197,7 +197,10 @@ class TestSetup2uPyPackage(unittest.TestCase):
         self.assertEqual(len(val), len(self.package_files_mpy_expectation))
 
         self.assertTrue(all(isinstance(ele, Path) for ele in val))
-        self.assertEqual(sorted(val), sorted(self.package_files_mpy_expectation))
+        self.assertEqual(
+            sorted(val),
+            sorted(self.package_files_mpy_expectation)
+        )
         # restore default pattern
         self.s2pp._package_file_glob = "*.py"
         self.assertEqual(self.s2pp._package_file_glob, "*.py")
