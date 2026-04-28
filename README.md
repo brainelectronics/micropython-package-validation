@@ -117,7 +117,7 @@ the `--pretty` option)
 ```bash
 upy-package \
     --setup_file tests/data/setup.py \
-    --create \
+    --create \
     --print \
     --pretty
 ```
@@ -131,7 +131,7 @@ parameter. The file has to exist before running the command.
 upy-package \
     --setup_file tests/data/setup.py \
     --package_file tests/data/custom-package.json \
-    --create \
+    --create \
     --print \
     --pretty
 ```
@@ -147,7 +147,7 @@ be specified explicitly to use its latest entry for the version value.
 upy-package \
     --setup_file tests/data/setup.py \
     --package_changelog_file tests/data/sample_changelog.md \
-    --create \
+    --create \
     --print \
     --pretty
 ```

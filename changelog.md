@@ -17,6 +17,10 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 -->
 
 ## Released
+## [0.6.1] - 2026-04-28
+### Fixed
+- Raise a `FileNotFoundError` if the specified `package_file` is not found during validation. The file will be created with the `--create` option without throwing an error due to non-existance on CLI arg parsing level.
+
 ## [0.6.0] - 2026-04-27
 ### Added
 - `.python-version` to use repo this with pyenv
@@ -71,8 +75,9 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 - Not used files provided with [template repo](https://github.com/brainelectronics/micropython-i2c-lcd)
 
 <!-- Links -->
-[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.6.0...main
+[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.6.1...main
 
+[0.6.1]: https://github.com/brainelectronics/micropython-package-validation/tree/0.6.1
 [0.6.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.6.0
 [0.5.1]: https://github.com/brainelectronics/micropython-package-validation/tree/0.5.1
 [0.5.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.5.0
