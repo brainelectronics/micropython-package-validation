@@ -192,7 +192,7 @@ def main():
 
             if pretty_output:
                 # pretty processing is done by validation_diff
-                stdout.write(diff)
+                stdout.write(diff + "\n")
                 stderr.write(
                     'Mismatch between "{}" and "{}"\n'.format(
                         setup_file.name,

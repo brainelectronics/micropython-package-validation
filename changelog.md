@@ -21,6 +21,9 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 ### Changed
 - Machine readable JSON of failed validation diff is printed to `stderr` instead of `stdout` to be usable with `upy-package ... --validate [--debug -vvvvv] 2> >(jq -r '.values_changed')` even if debug logging is enabled
 
+### Fixed
+- Print new line after pretty printed diff on failed validation
+
 ## [0.8.0] - 2026-05-01
 ### Added
 - Extended documentation for pre-commit installation and usage
