@@ -22,6 +22,7 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 - Extended documentation for pre-commit installation and usage
 - `nose2` pre-commit hook
 - Extend logging usage for better debugging with cleaner log messages
+- `requirements-deploy-lock.txt` capturing the current dependency package versions used
 
 ### Changed
 - Updated pre-commit hook versions of `flake8` and `yamllint`
