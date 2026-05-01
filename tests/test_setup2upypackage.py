@@ -302,7 +302,7 @@ class TestSetup2uPyPackage(unittest.TestCase):
             val = self.s2pp.package_json_data
 
         self.assertEqual(str(context.exception),
-                         "No package.json data specified")
+                         "No package JSON data file specified")
 
         s2pp = Setup2uPyPackage(
             setup_file=self.setup_file,

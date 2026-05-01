@@ -71,6 +71,22 @@ pip install setup2upypackage
 ## Usage
 
 ### Validate
+
+The optional arg `--pretty` can be used to output human readable content instead of JSON data in case of a failure.
+
+The machine readable JSON output might look like and can directly be processed with e.g. `jq`:
+
+```json
+{"values_changed": {"root['urls'][1][0]": {"new_value": "be_upy_blink/blink2.py", "old_value": "be_upy_blink/blink.py"}}}
+```
+
+The human readable output using `--pretty` might look like:
+
+```
+Mismatch between "setup.py" and "package.json"
+Diff: Value of root['urls'][1][0] changed from "be_upy_blink/blink.py" to "be_upy_blink/blink2.py".
+```
+
 #### Validate package JSON file
 
 The following command will exit with a non-zero code in case of a difference
@@ -108,6 +124,9 @@ argument. Additionally added `boot.py` and `main.py` files in `package.json`
 can be ignored using `--ignore-boot-main` during a validation run.
 
 ### Create
+
+Using the optional `--pretty` argument will pretty format all JSON output in the generated output file and on the optional console output.
+
 #### Create package JSON file
 
 The following command creates a `package.json` file in the same directory as

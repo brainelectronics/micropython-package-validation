@@ -1,13 +1,37 @@
 ---
 
+# To install pre-commit hooks, install `pre-commit` and activate it here:
+#     pip3 install pre-commit
+#     pre-commit install
+#
+# Run the hooks on all files with
+# 'pre-commit run --all'
+#
+
 repos:
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.37.0
     hooks:
-      - id: trailing-whitespace
-        args: ["--markdown-linebreak-ext=md"]
-      - id: check-yaml
+      - id: yamllint
+        args: [--strict, -c=.yamllint]
   - repo: https://github.com/PyCQA/flake8
-    rev: 5.0.4
+    rev: 7.3.0
     hooks:
       - id: flake8
+  # this is a dirty hack to prepare the folder structure for nose2
+  # only the order of hooks ensures this hook is executed before the nose2 hook
+  - repo: local
+    hooks:
+      - id: setup-nose2-output-dir
+        name: Create nose2 output folder
+        entry: python create_report_dirs.py
+        language: system
+        pass_filenames: false
+  - repo: local
+    hooks:
+      - id: nose2
+        name: nose2 tests
+        entry: nose2 --config tests/unittest.cfg
+        language: python
+        pass_filenames: false
+        types: [file, python]
