@@ -21,9 +21,13 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 ### Added
 - Extended documentation for pre-commit installation and usage
 - `nose2` pre-commit hook
+- Extend logging usage for better debugging with cleaner log messages
 
 ### Changed
 - Updated pre-commit hook versions of `flake8` and `yamllint`
+
+### Fixed
+- Add missing type and parameter docstring for `package_file_glob` in `Setup2uPyPackage`
 
 ## [0.7.0] - 2026-04-28
 ### Added

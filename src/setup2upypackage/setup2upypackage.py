@@ -35,14 +35,16 @@ class Setup2uPyPackage(object):
         """
         Init Setup2uPyPackage class
 
-        :param      setup_file:    The setup.py file
-        :type       setup_file:    Path
-        :param      package_file:  The package.json file
-        :type       package_file:  Optional[Path]
-        :param      package_file:  The package changelog file
-        :type       package_file:  Optional[Path]
-        :param      logger:        Logger object
-        :type       logger:        Optional[logging.Logger]
+        :param      setup_file:         The setup.py file
+        :type       setup_file:         Path
+        :param      package_file:       The package.json file
+        :type       package_file:       Optional[Path]
+        :param      package_file:       The package changelog file
+        :type       package_file:       Optional[Path]
+        :param      package_file_glob:  The pattern of package files to use
+        :type       package_file_glob:  Optional[str]
+        :param      logger:             Logger object
+        :type       logger:             Optional[logging.Logger]
         """
         if logger is None:
             logger = self._create_logger()
@@ -115,7 +117,11 @@ class Setup2uPyPackage(object):
         if self._setup_data.get('version', ""):
             return self._setup_data['version']
         else:
-            self._logger.warning("No 'version' key found in setup data dict")
+            self._logger.warning(
+                "No 'version' key found in data dict of '{}'".format(
+                    self._setup_file
+                )
+            )
             return "-1.-1.-1"
 
     @property
@@ -153,7 +159,9 @@ class Setup2uPyPackage(object):
             return self._setup_data['install_requires']
         else:
             self._logger.warning(
-                "No 'install_requires' key found in setup data dict"
+                "No 'install_requires' key found in data dict of '{}'".format(
+                    self._setup_file
+                )
             )
             return []
 
@@ -168,7 +176,11 @@ class Setup2uPyPackage(object):
         if self._setup_data.get('url', ""):
             return self._setup_data['url']
         else:
-            self._logger.warning("No 'url' key found in setup data dict")
+            self._logger.warning(
+                "No 'url' key found in data dict of '{}'".format(
+                    self._setup_file
+                )
+            )
             raise SystemExit('Project URL is mandatory')
 
     @property
@@ -186,14 +198,22 @@ class Setup2uPyPackage(object):
         if self._setup_data.get('packages', []):
             packages = self._setup_data['packages']
         else:
-            self._logger.warning("No 'packages' key found in setup data dict")
+            self._logger.warning(
+                "No 'packages' key found in data dict of '{}'".format(
+                    self._setup_file
+                )
+            )
             return []
 
         for package in packages:
+            self._logger.debug(
+                "Check for '{}/{}'".format(package, self._package_file_glob)
+            )
             p = root_dir.glob('{}/{}'.format(package, self._package_file_glob))
             files = [x.relative_to(root_dir) for x in p if x.is_file()]
             all_files.extend(files)
 
+        self._logger.debug("Found files: {}".format(all_files))
         return all_files
 
     @property
@@ -212,7 +232,9 @@ class Setup2uPyPackage(object):
             data_files = self._setup_data['data_files']
         else:
             self._logger.warning(
-                "No 'data_files' key found in setup data dict"
+                "No 'data_files' key found in data dict of '{}'".format(
+                    self._setup_file
+                )
             )
             return []
 
@@ -307,7 +329,7 @@ class Setup2uPyPackage(object):
             with open(self._package_file, 'r') as f:
                 existing_data = json.load(f)
         else:
-            raise Setup2uPyPackageError("No package.json data specified")
+            raise Setup2uPyPackageError("No package JSON data file specified")
 
         return existing_data
 
@@ -355,6 +377,12 @@ class Setup2uPyPackage(object):
         package_json_data.get("urls", []).sort()
         package_data.get("urls", []).sort()
 
+        self._logger.debug(
+            "Comparing package JSON data '{}' with '{}'".format(
+                json.dumps(package_json_data),
+                json.dumps(package_data)
+            )
+        )
         return package_json_data == package_data
 
     def _exclude_package_files(
@@ -406,7 +434,8 @@ class Setup2uPyPackage(object):
             else:
                 output_path = self._setup_file.parent / 'package.json'
                 self._logger.info(
-                    "No package.json data specified, using setup.py directory"
+                    "No package JSON data specified, using directory of {}".
+                    format(self._setup_file)
                 )
 
         with open(output_path, 'w') as file:

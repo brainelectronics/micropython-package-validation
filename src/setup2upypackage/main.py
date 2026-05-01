@@ -193,7 +193,12 @@ def main():
                 stdout.write(json.dumps(diff, indent=4))
             else:
                 stdout.write(json.dumps(diff))
-            raise SystemExit('Mismatch between setup.py data and package.json')
+            raise SystemExit(
+                '\nMismatch between "{}" and "{}"'.format(
+                    setup_file.name,
+                    package_file.name
+                )
+            )
 
     if print_result:
         if pretty_output:
