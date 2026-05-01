@@ -31,6 +31,7 @@ class Setup2uPyPackage(object):
                  package_file: Optional[Path],
                  package_changelog_file: Optional[Path],
                  package_file_glob: Optional[str] = "*.py",
+                 pretty_diff_output: bool = False,
                  logger: Optional[logging.Logger] = None) -> None:
         """
         Init Setup2uPyPackage class
@@ -43,6 +44,8 @@ class Setup2uPyPackage(object):
         :type       package_file:       Optional[Path]
         :param      package_file_glob:  The pattern of package files to use
         :type       package_file_glob:  Optional[str]
+        :param      pretty_diff_output: Flag to pretty print diff output
+        :type       pretty_diff_output: bool
         :param      logger:             Logger object
         :type       logger:             Optional[logging.Logger]
         """
@@ -54,6 +57,7 @@ class Setup2uPyPackage(object):
         self._package_file = package_file
         self._package_file_glob = package_file_glob
         self._package_changelog_file = package_changelog_file
+        self._pretty_diff_output = pretty_diff_output
 
         self._setup_data = {}
         self._root_dir = self._setup_file.parent
@@ -415,7 +419,18 @@ class Setup2uPyPackage(object):
         :returns:   The deep difference.
         :rtype:     DeepDiff
         """
-        return DeepDiff(self.package_data, self.package_json_data)
+        if self._pretty_diff_output:
+            return DeepDiff(
+                t1=self.package_data,
+                t2=self.package_json_data,
+                verbose_level=2
+            ).pretty(prefix='Diff: ')
+        else:
+            return DeepDiff(
+                t1=self.package_data,
+                t2=self.package_json_data,
+                verbose_level=2
+            )
 
     def create(self,
                output_path: Optional[Path] = None,

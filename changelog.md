@@ -25,6 +25,10 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 
 ### Changed
 - Updated pre-commit hook versions of `flake8` and `yamllint`
+- Using `--pretty` provides a better human readable diff output
+- Instead of finally raising a `SystemExit` if the validation failed, the message is printed to `stderr` before writing the diff to `stdout`.
+- The message of a mismatch between `setup.py` and package JSON file data is only printed when using `--pretty` to make the output machine readable.
+- The diff of the validation is returned with verbose level 2
 
 ### Fixed
 - Add missing type and parameter docstring for `package_file_glob` in `Setup2uPyPackage`

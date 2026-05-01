@@ -18,7 +18,7 @@ import argparse
 import json
 import logging
 from pathlib import Path
-from sys import stdout
+from sys import exit, stdout, stderr
 
 from .setup2upypackage import Setup2uPyPackage
 from .version import __version__
@@ -176,6 +176,7 @@ def main():
         package_file=package_file,
         package_changelog_file=package_changelog_file,
         package_file_glob=package_file_glob,
+        pretty_diff_output=pretty_output,
         logger=logger)
 
     package_data = setup_2_upy_package.package_data
@@ -190,15 +191,18 @@ def main():
             diff = setup_2_upy_package.validation_diff
 
             if pretty_output:
-                stdout.write(json.dumps(diff, indent=4))
+                # pretty processing is done by validation_diff
+                stdout.write(diff)
+                stderr.write(
+                    'Mismatch between "{}" and "{}"\n'.format(
+                        setup_file.name,
+                        package_file.name
+                    )
+                )
             else:
                 stdout.write(json.dumps(diff))
-            raise SystemExit(
-                '\nMismatch between "{}" and "{}"'.format(
-                    setup_file.name,
-                    package_file.name
-                )
-            )
+
+            return 1
 
     if print_result:
         if pretty_output:
@@ -212,4 +216,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    exit(main())
