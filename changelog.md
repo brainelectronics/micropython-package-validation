@@ -23,6 +23,7 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 
 ### Fixed
 - Print new line after pretty printed diff on failed validation
+- Install package as additional dependency to run `nose2` tests
 
 ## [0.8.0] - 2026-05-01
 ### Added
