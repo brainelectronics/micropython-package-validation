@@ -18,10 +18,20 @@ repos:
     rev: 7.3.0
     hooks:
       - id: flake8
+  # this is a dirty hack to prepare the folder structure for nose2
+  # only the order of hooks ensures this hook is executed before the nose2 hook
+  - repo: local
+    hooks:
+      - id: setup-nose2-output-dir
+        name: Create nose2 output folder
+        entry: python create_report_dirs.py
+        language: system
+        pass_filenames: false
   - repo: local
     hooks:
       - id: nose2
         name: nose2 tests
-        entry: python create_report_dirs.py && nose2 --config tests/unittest.cfg
+        entry: nose2 --config tests/unittest.cfg
         language: python
         pass_filenames: false
+        types: [file, python]
