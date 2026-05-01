@@ -14,10 +14,6 @@ repos:
     hooks:
       - id: yamllint
         args: [--strict, -c=.yamllint]
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.3.0
-    hooks:
-      - id: flake8
   # this is a dirty hack to prepare the folder structure for nose2
   # only the order of hooks ensures this hook is executed before the nose2 hook
   - repo: local
@@ -27,6 +23,11 @@ repos:
         entry: python create_report_dirs.py
         language: system
         pass_filenames: false
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
+        args: [--output-file=reports/sca/flake8.out]
   - repo: local
     hooks:
       - id: nose2
@@ -35,3 +36,5 @@ repos:
         language: python
         pass_filenames: false
         types: [file, python]
+        additional_dependencies:
+          - "setup2upypackage[test]"
