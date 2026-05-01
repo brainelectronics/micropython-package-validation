@@ -74,10 +74,19 @@ pip install setup2upypackage
 
 The optional arg `--pretty` can be used to output human readable content instead of JSON data in case of a failure.
 
-The machine readable JSON output might look like and can directly be processed with e.g. `jq`:
+The machine readable JSON output might look like and can directly be processed with e.g. `jq` using `upy-package ... --validate 2> >(jq -r '.')`:
 
 ```json
-{"values_changed": {"root['urls'][1][0]": {"new_value": "be_upy_blink/blink2.py", "old_value": "be_upy_blink/blink.py"}}}
+{
+    "values_changed":
+    {
+        "root['urls'][1][0]":
+        {
+            "new_value": "be_upy_blink/blink2.py",
+            "old_value": "be_upy_blink/blink.py"
+        }
+    }
+}
 ```
 
 The human readable output using `--pretty` might look like:

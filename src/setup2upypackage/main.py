@@ -200,7 +200,8 @@ def main():
                     )
                 )
             else:
-                stdout.write(json.dumps(diff))
+                # make the output machine readable even with debug logging
+                stderr.write(json.dumps(diff))
 
             return 1
 
