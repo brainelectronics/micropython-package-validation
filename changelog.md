@@ -17,6 +17,10 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 -->
 
 ## Released
+## [0.9.1] - 2026-05-04
+### Fixed
+- Update `brainelectronics/changelog-based-release` action to `v1.2.2` to create tag of PR on head of branch
+
 ## [0.9.0] - 2026-05-01
 ### Changed
 - Machine readable JSON of failed validation diff is printed to `stderr` instead of `stdout` to be usable with `upy-package ... --validate [--debug -vvvvv] 2> >(jq -r '.values_changed')` even if debug logging is enabled
@@ -105,8 +109,9 @@ r"^\#\# \[\d{1,}[.]\d{1,}[.]\d{1,}\] \- \d{4}\-\d{2}-\d{2}$"
 - Not used files provided with [template repo](https://github.com/brainelectronics/micropython-i2c-lcd)
 
 <!-- Links -->
-[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.9.0...main
+[Unreleased]: https://github.com/brainelectronics/micropython-package-validation/compare/0.9.1...main
 
+[0.9.1]: https://github.com/brainelectronics/micropython-package-validation/tree/0.9.1
 [0.9.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.9.0
 [0.8.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.8.0
 [0.7.0]: https://github.com/brainelectronics/micropython-package-validation/tree/0.7.0
